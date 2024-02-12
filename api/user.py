@@ -14,7 +14,8 @@ api = Api(user_api)
 
 class UserAPI:        
     class _CRUD(Resource):  # User API operation for Create, Read.  THe Update, Delete methods need to be implemeented
-        def post(self): # Create method
+        @token_required
+        def post(self, current_user): # Create method
             ''' Read data for json body '''
             body = request.get_json()
             
@@ -55,24 +56,30 @@ class UserAPI:
             # failure returns error
             return {'message': f'Processed {name}, either a format error or User ID {uid} is duplicate'}, 400
 
-        @token_required()
-        def get(self, _): # Read Method, the _ indicates current_user is not used
+        
+        def get(self): # Read Method
             users = User.query.all()    # read/extract all users from database
             json_ready = [user.read() for user in users]  # prepare output in json
             return jsonify(json_ready)  # jsonify creates Flask response object, more specific to APIs than json.dumps
-   
-        @token_required("Admin")
-        def delete(self, _): # Delete Method
+
+
+        @token_required
+        def put(self, current_user):
+            body = request.get_json() # get the body of the request
+            uid = body.get('uid') # get the UID (Know what to reference)
+            data = body.get('data')
+            user = User.query.get(uid) # get the player (using the uid in this case)
+            user.update(data)
+            return f"{user.read()} Updated"
+        
+        @token_required
+        def delete(self, current_user):
             body = request.get_json()
             uid = body.get('uid')
-            user = User.query.filter_by(_uid=uid).first()
-            if user is None:
-                return {'message': f'User {uid} not found'}, 404
-            json = user.read()
-            user.delete() 
-            # 204 is the status code for delete with no json response
-            return f"Deleted user: {json}", 204 # use 200 to test with Postman
-         
+            user = User.query.get(uid)
+            user.delete()
+            return f"{user.read()} Has been deleted"
+    
     class _Security(Resource):
         def post(self):
             try:
@@ -96,7 +103,7 @@ class UserAPI:
                 if user:
                     try:
                         token = jwt.encode(
-                            {"_uid": user._uid},
+                            {"_uid": user._uid, "_role":user._role},
                             current_app.config["SECRET_KEY"],
                             algorithm="HS256"
                         )

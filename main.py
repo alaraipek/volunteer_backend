@@ -10,9 +10,8 @@ from __init__ import app, db, cors  # Definitions initialization
 
 
 # setup APIs
-from api.covid import covid_api # Blueprint import api definition
-from api.joke import joke_api # Blueprint import api definition
 from api.user import user_api # Blueprint import api definition
+from api.event import event_api
 from api.player import player_api
 # database migrations
 from model.users import initUsers
@@ -26,9 +25,8 @@ from projects.projects import app_projects # Blueprint directory import projects
 db.init_app(app)
 
 # register URIs
-app.register_blueprint(joke_api) # register api routes
-app.register_blueprint(covid_api) # register api routes
 app.register_blueprint(user_api) # register api routes
+app.register_blueprint(event_api)
 app.register_blueprint(player_api)
 app.register_blueprint(app_projects) # register app pages
 
@@ -67,4 +65,4 @@ app.cli.add_command(custom_cli)
 # this runs the application on the development server
 if __name__ == "__main__":
     # change name for testing
-    app.run(debug=True, host="0.0.0.0", port="8086")
+    app.run(debug=True, host="0.0.0.0", port="8965")
