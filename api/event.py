@@ -64,7 +64,7 @@ class EventAPI:
 
         
         def get(self): # Read Method
-            events = Event.query.filter(Event.userID.is_(None)).all()    # read/extract all events from database
+            events = Event.query.all()    # read/extract all events from database
             json_ready = [event.read() for event in events]  # prepare output in json
             return jsonify(json_ready)  # jsonify creates Flask response object, more specific to APIs than json.dumps
 
@@ -105,6 +105,7 @@ class EventAPI:
 
             # Build the query dynamically
             query = Event.query.filter(Event.userID.is_(None))
+            
             for field, value in filters.items():
                 if field == 'zipcode':
                     query = query.filter(Event.zipcode == value)
@@ -117,9 +118,18 @@ class EventAPI:
             json_ready = [event.read() for event in results]  # prepare output in json
             return jsonify(json_ready)  # jsonify creates Flask response object, more specific to APIs than json.dumps              
 
-            
+    class _GETBYID(Resource):
+        def get(self, id):
+            events = Event.query.filter(Event.userID.is_(id)).all()    # read/extract all events from database
+            json_ready = [event.read() for event in events]  # prepare output in json
+            return jsonify(json_ready)  # jsonify creates Flask response object, more specific to APIs than json.dumps
+
+
     # building RESTapi endpoint
     api.add_resource(_CRUD, '/')
     api.add_resource(_FILTER, '/query')
+    api.add_resource(_GETBYID, '/get_by_id/<int:id>')
+    
+
 
     

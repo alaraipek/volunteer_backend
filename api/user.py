@@ -14,8 +14,8 @@ api = Api(user_api)
 
 class UserAPI:        
     class _CRUD(Resource):  # User API operation for Create, Read.  THe Update, Delete methods need to be implemeented
-        @token_required
-        def post(self, current_user): # Create method
+        
+        def post(self): # Create method
             ''' Read data for json body '''
             body = request.get_json()
             
@@ -103,7 +103,7 @@ class UserAPI:
                 if user:
                     try:
                         token = jwt.encode(
-                            {"_uid": user._uid, "_role":user._role},
+                            {"_uid": user._uid, "_role":user._role, "id":user.id},
                             current_app.config["SECRET_KEY"],
                             algorithm="HS256"
                         )
@@ -111,7 +111,7 @@ class UserAPI:
                         resp.set_cookie("jwt", token,
                                 max_age=3600,
                                 secure=True,
-                                httponly=True,
+                                httponly=False,
                                 path='/',
                                 samesite='None'  # This is the key part for cross-site requests
 
