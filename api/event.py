@@ -68,8 +68,8 @@ class EventAPI:
             json_ready = [event.read() for event in events]  # prepare output in json
             return jsonify(json_ready)  # jsonify creates Flask response object, more specific to APIs than json.dumps
 
-        @token_required
-        def put(self, current_user):
+
+        def put(self):
             body = request.get_json() # get the body of the request
             id = body.get('id') # get the UID (Know what to reference)
             data = body.get('data')
