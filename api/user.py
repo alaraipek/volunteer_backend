@@ -113,7 +113,6 @@ class UserAPI:
                                 secure=True,
                                 httponly=True,
                                 path='/',
-                                samesite='None',
                                 domain="oppconn.stu.nighthawkcodingsociety.com"
                                 )
                         return resp
