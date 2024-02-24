@@ -111,7 +111,7 @@ class UserAPI:
                         resp.set_cookie("jwt", token,
                                 max_age=3600,
                                 secure=True,
-                                httponly=False,
+                                httponly=True,
                                 path='/',
                                 samesite='None',
                                 domain="oppconn.stu.nighthawkcodingsociety.com"
