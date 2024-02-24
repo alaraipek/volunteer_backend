@@ -113,9 +113,8 @@ class UserAPI:
                                 secure=True,
                                 httponly=False,
                                 path='/',
-                                samesite='None'  # This is the key part for cross-site requests
-
-                                # domain="frontend.com"
+                                samesite='None',
+                                domain="http://tarasehdave.github.io"
                                 )
                         return resp
                     except Exception as e:
