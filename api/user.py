@@ -113,7 +113,8 @@ class UserAPI:
                                 secure=True,
                                 httponly=True,
                                 path='/',
-                                domain="oppconn.stu.nighthawkcodingsociety.com"
+                                samesite='None',
+                                domain="tarasehdave.github.io"
                                 )
                         return resp
                     except Exception as e:
