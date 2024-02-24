@@ -114,7 +114,7 @@ class UserAPI:
                                 httponly=False,
                                 path='/',
                                 samesite='None',
-                                domain="https://oppconn.stu.nighthawkcodingsociety.com"
+                                domain="oppconn.stu.nighthawkcodingsociety.com"
                                 )
                         return resp
                     except Exception as e:
