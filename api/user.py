@@ -114,7 +114,7 @@ class UserAPI:
                                 httponly=False,
                                 path='/',
                                 samesite='None',
-                                domain="http://tarasehdave.github.io"
+                                domain="https://tarasehdave.github.io"
                                 )
                         return resp
                     except Exception as e:
