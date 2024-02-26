@@ -111,10 +111,10 @@ class UserAPI:
                         resp.set_cookie("jwt", token,
                                 max_age=3600,
                                 secure=False,
-                                #httponly=False,
+                                httponly=False,
                                 path='/',
                                 samesite='None',
-                                domain=".stu.nighthawkcodingsociety.com"
+                                domain="oppconn.stu.nighthawkcodingsociety.com"
                                 )
                         return resp
                     except Exception as e:
