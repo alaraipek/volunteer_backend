@@ -114,7 +114,7 @@ class UserAPI:
                                 httponly=False,
                                 path='/',
                                 samesite='None',
-                                #domain=".github.io"
+                                domain=".stu.nighthawkcodingsociety.com"
                                 )
                         return resp
                     except Exception as e:
