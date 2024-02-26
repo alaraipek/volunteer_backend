@@ -110,8 +110,8 @@ class UserAPI:
                         resp = Response("Authentication for %s successful" % (user._uid))
                         resp.set_cookie("jwt", token,
                                 max_age=3600,
-                                secure=True,
-                                httponly=False,
+                                secure=False,
+                                #httponly=False,
                                 path='/',
                                 samesite='None',
                                 domain=".stu.nighthawkcodingsociety.com"
