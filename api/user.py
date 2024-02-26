@@ -110,11 +110,11 @@ class UserAPI:
                         resp = Response("Authentication for %s successful" % (user._uid))
                         resp.set_cookie("jwt", token,
                                 max_age=3600,
-                                secure=False,
+                                secure=True,
                                 httponly=False,
                                 path='/',
                                 samesite='None',
-                                domain="oppconn.stu.nighthawkcodingsociety.com"
+                                #domain="oppconn.stu.nighthawkcodingsociety.com"
                                 )
                         return resp
                     except Exception as e:
