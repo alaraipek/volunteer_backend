@@ -257,10 +257,20 @@ def initUsers():
 
         # Create a Python array with JSON values
         json_array = [
-        '{"title": "FoodBank", "description": "Food Bank", "address": "123 food bank st", "zipcode":"92126", "day":20,"agegroup":"16"}',
-        '{"title": "AnimalShelter", "description": "Animal Shelter", "address": "123 Animal shelter st", "zipcode":"92127", "day":21,"agegroup":"18"}',
-        '{"title": "CommunityService", "description": "Community Service", "address": "123 community service st", "zipcode":"92128", "day":22,"agegroup":"10"}',
-        '{"title": "BeachCleanup", "description": "Beach Cleanup", "address": "123 beach cleanup st", "zipcode":"92129", "day":23,"agegroup":"6"}',
+        #'{"title": "FoodBank", "description": "Food Bank", "address": "123 food bank st", "zipcode":"92126", "day":20,"agegroup":"16"}',
+        #'{"title": "AnimalShelter", "description": "Animal Shelter", "address": "123 Animal shelter st", "zipcode":"92127", "day":21,"agegroup":"18"}',
+        #'{"title": "CommunityService", "description": "Community Service", "address": "123 community service st", "zipcode":"92128", "day":22,"agegroup":"10"}',
+        #'{"title": "BeachCleanup", "description": "Beach Cleanup", "address": "123 beach cleanup st", "zipcode":"92129", "day":23,"agegroup":"6"}',
+        '{"title": "San Diego Refugee Tutoring", "description": "Tutor refugee students for 2 hours on Tuesdays and Thursdays from 4pm to 6pm.", "address": "4877 Orange Ave, San Diego, CA 92115","zipcode": "92115","date": "2024-02-27","agegroup": "14"}',
+        '{"title": "Youth Court", "description": "Teens take the roles of lawyers and judges and hear cases about fellow students and their infractures.", "address": "220 S Broadway, Escondido, CA 92025","zipcode": "92025","date": "2024-02-27","agegroup": "14"}',
+        '{"title": "Balboa Natural History Museum", "description": "Volunteers educate visitors in the museum about animals at small display stands.", "address": "1788 El Prado, San Diego, CA 92101","zipcode": "92101","date": "2024-03-02","agegroup": "16"}',
+        '{"title": "Step Up", "description": "Mentoring program for girls", "address": "510 South Hewitt Street #111 Los Angeles, CA 90013","zipcode": "90013","date": "2024-03-02","agegroup": "14"}',
+        '{"title": "Children Rising", "description": "Tutoring program for students.", "address": "2633 Telegraph Avenue #412 Oakland, CA 94612","zipcode": "94612","date": "2024-03-10","agegroup": "18"}',
+        '{"title": "Seattle Animal Shelter", "description": "Help animals get adopted to loving families.", "address": "2061 15th Ave W, Seattle, WA, 98119","zipcode": "98119","date": "2024-03-10","agegroup": "18"}',
+        '{"title": "Gods Love We Deliver", "description": "Help cook and deliver meals to those in need.", "address": "166 Avenue of the Americas New York, NY 10013","zipcode": "10013","date": "2024-03-20","agegroup": "18"}',
+        '{"title": "Horse Play Therapy Center", "description": "Advance development and healing for children with special needs", "address": "1925 State Road 207 Saint Augustine, FL 32086","zipcode": "32086","date": "2024-03-14","agegroup": "14"}',
+        '{"title": "Community Servings Food Heals", "description": "Help deliver food to families experiencing critical or chronic illness and nutrition insecurity", "address": "179 Amory Street Jamaica Plain, MA 02130","zipcode": "02130","date": "2024-03-09","agegroup": "18"}',
+        '{"title": "Emmaus", "description": "Help prevent human trafficking and exploitation.", "address": "954 W. Washington Blvd Chicago, IL 60607 ","zipcode": "60607","date": "2024-03-30","agegroup": "18"}',        
         ]
         events_array = [json.loads(json_str) for json_str in json_array]
         num = 0
@@ -275,9 +285,9 @@ def initUsers():
                     description = events["description"]
                     address = events["address"]
                     zipcode = events["zipcode"]
-                    day = events["day"]
+                    edate = events["date"]
                     agegroup = events["agegroup"]
-                    user.events.append(Event(title=title, description=description, address=address, zipcode=zipcode, date=date(2024,2,day), agegroup=agegroup ))
+                    user.events.append(Event(title=title, description=description, address=address, zipcode=zipcode, date=datetime.strptime(edate, '%Y-%m-%d').date(), agegroup=agegroup ))
                 '''add user/event data to table'''
                 user.create()
             except IntegrityError:
