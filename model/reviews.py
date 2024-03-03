@@ -1,41 +1,36 @@
-from flask import Flask, Blueprint, request, jsonify
-from flask_restful import Api, Resource
-import random
-import json
+from flask_sqlalchemy import SQLAlchemy
+from datetime import date
+import os
 
-app = Flask(__name__)
+# Initialize the SQLAlchemy object
+db = SQLAlchemy()
 
-reviews_api = Blueprint('reviews_api', __name__, url_prefix='/api/reviews')
-api = Api(reviews_api)
+# Define the Review class to manage actions in the 'reviews' table
+class Review(db.Model):
+    __tablename__ = 'reviews'
 
-review_data = []
+    id = db.Column(db.Integer, primary_key=True)
+    title = db.Column(db.Text, nullable=False)
+    review = db.Column(db.Text, nullable=False)
 
+    def __init__(self, title, review):
+        self.title = title
+        self.review = review
+
+    def __repr__(self):
+        return f"Review(id={self.id}, title={self.title}, review={self.review})"
+
+
+# Define the function to initialize the database with sample data
 def initReviews():
-    global review_data
-    try:
-        with open("carddb.json", "r") as file:
-            review_data = json.load(file)
-            print("Successfully loaded JSON data:", review_data)
-    except FileNotFoundError:
-        review_data = []
-        print("File not found.")
-    except Exception as e:
-        print("Error:", e)
+    with db.session() as session:
+        # Create some sample reviews
+        review1 = Review(title='Product A', review='This is a great product.')
+        review2 = Review(title='Service B', review='Excellent service provided.')
+        review3 = Review(title='Experience C', review='Had a wonderful experience.')
 
-class RandomReview(Resource):
-    def get(self):
-        initReviews()  # Ensure card_data is up to date
-        random_review = generateRandomReview()
-        return jsonify(random_review)
-
-def generateRandomReview():
-    if review_data:
-        return random.choice(review_data)
-    else:
-        return {"error": "No review data available"}
-
-api.add_resource(RandomReview, '/rand')
-
-if __name__ == "__main__":
-    app.register_blueprint(reviews_api)
-    app.run(debug=True)
+        # Add reviews to the session and commit changes
+        session.add(review1)
+        session.add(review2)
+        session.add(review3)
+        session.commit()

@@ -73,7 +73,4 @@ class _Count(Resource):
         count = len(beautified_data)
         return {"count": count}
 
-api.add_resource(_Read, '/')
-api.add_resource(_ReadRandom, '/reviews')
-api.add_resource(_Search, '/search')
-api.add_resource(_Count, '/count')
+api.add_resource(_ReadRandom, '/random')
